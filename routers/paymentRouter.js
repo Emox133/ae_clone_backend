@@ -8,7 +8,7 @@ router.route('/paypal')
 .get(authController.protectRoutes, paymentController.paypalBridge, paymentController.paypal)
 
 router.route('/paypal/orders')
-.get(authController.protectRoutes, paymentController.ordersBridge)
+.get(paymentController.ordersBridge)
 
 router.route('/paypal/success')
 .get(authController.protectRoutes, paymentController.paypalBridge, paymentController.successRoute)

@@ -4,7 +4,8 @@ const Product = require('./../model/Product')
 const Cart = require('./../model/Cart')
 
 exports.paypalBridge = catchAsync(async(req, res, next) => {
-    const cart = await Cart.find({cartOwner: req.user._id})
+    // change later to req.user_id is cartOwner
+    const cart = await Cart.find({cartOwner: '61010f1ba3bf831e204e04e1'})
     const ids = cart.map(c => c.products.map(p => p._id)).flat(Infinity)
 
     const selectedProducts = await Product.find({'_id': {$in: ids}}).select('-__v -_id')
@@ -17,13 +18,8 @@ exports.paypalBridge = catchAsync(async(req, res, next) => {
 
 // FOR TESTING // OR NOT ?
 exports.ordersBridge = catchAsync(async(req, res, next) => {
-    let token
-    
-    if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
-        token = req.headers.authorization.split(' ')[1]
-    }
-
-    const cart = await Cart.find({cartOwner: req.user._id})
+    // change later to req.user_id is cartOwner
+    const cart = await Cart.find({cartOwner: '61010f1ba3bf831e204e04e1'})
     const ids = cart.map(c => c.products.map(p => p._id)).flat(Infinity)
 
     const selectedProducts = await Product.find({'_id': {$in: ids}}).select('-__v -_id')
@@ -32,8 +28,7 @@ exports.ordersBridge = catchAsync(async(req, res, next) => {
     res.status(200).json({
        data: {
            selectedProducts,
-           totalAmount,
-           token
+           totalAmount
        }
     })
 })
