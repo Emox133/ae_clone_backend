@@ -4,7 +4,6 @@ const Product = require('./../model/Product')
 const Cart = require('./../model/Cart')
 
 exports.paypalBridge = catchAsync(async(req, res, next) => {
-    // change later to req.user_id is cartOwner
     const cart = await Cart.find({cartOwner: req.user._id})
     const ids = cart.map(c => c.products.map(p => p._id)).flat(Infinity)
 
@@ -24,7 +23,6 @@ exports.ordersBridge = catchAsync(async(req, res, next) => {
         token = req.headers.authorization.split(' ')[1]
     }
 
-    // change later to req.user_id is cartOwner
     const cart = await Cart.find({cartOwner: req.user._id})
     const ids = cart.map(c => c.products.map(p => p._id)).flat(Infinity)
 
