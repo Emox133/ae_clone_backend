@@ -12,7 +12,7 @@ exports.getCart = catchAsync(async(req, res, next) => {
 
 exports.createCart = catchAsync(async(req, res, next) => {
     const newCart = await Cart.create({
-        cartOwner: req.user._id,
+        cartOwner: '61010f1ba3bf831e204e04e1',
         products: req.body.items
     })
 
